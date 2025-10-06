@@ -152,8 +152,18 @@ print("Classification Report (LR):\n", classification_report(y_test, y_pred_lr))
 rf = RandomForestClassifier(random_state=42, n_estimators=200)
 rf.fit(X_train, y_train)
 y_pred_rf = rf.predict(X_test)
+cm = confusion_matrix(y_test, y_pred_rf)
 
 print("\nRandom Forest Accuracy:", accuracy_score(y_test, y_pred_rf))
+
+plt.figure(figsize=(6, 5))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['On Time', 'Delayed'], yticklabels=['On Time', 'Delayed'])
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix (Random Forest)')
+plt.savefig("fig_confusion_matrix.png", dpi=200)
+plt.show()
+
 print("Confusion Matrix (RF):\n", confusion_matrix(y_test, y_pred_rf))
 print("Classification Report (RF):\n", classification_report(y_test, y_pred_rf))
 
